@@ -167,3 +167,5 @@ D:\Projects\DotNet Projects\Training\MyDotnetProject\obj\Debug\net8.0\refint\MyD
 D:\Projects\DotNet Projects\Training\MyDotnetProject\obj\Debug\net8.0\MyDotnetProject.pdb
 D:\Projects\DotNet Projects\Training\MyDotnetProject\obj\Debug\net8.0\MyDotnetProject.genruntimeconfig.cache
 D:\Projects\DotNet Projects\Training\MyDotnetProject\obj\Debug\net8.0\ref\MyDotnetProject.dll
+D:\Projects\DotNet Projects\Training\MyDotnetProject\obj\Debug\net8.0\MyDotnetProject.sourcelink.json
+D:\Projects\DotNet Projects\Training\MyDotnetProject\bin\Debug\net8.0\web.config

@@ -23,10 +23,10 @@ public List<Employee>  GetEmployees()
 }
 
 [HttpGet("getEmployees")]
-public async Task<IActionResult> getEmployees()
+public String getEmployees()
 {
-    var employees = await _context.Employees.ToListAsync();
-    return Ok(employees);
+    var employees = "Checking My CI/CD Pipeline";
+    return employees;
 }
 
 [HttpPost]
