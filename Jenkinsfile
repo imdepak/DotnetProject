@@ -15,15 +15,13 @@ pipeline {
         
          stage('Build') {
             steps {
-                bat 'dotnet build D:\\Projects\\DotNet Projects\\Training\\MyDotnetProject\\MyDotnetProject.sln
- --configuration Release'
+                bat 'dotnet build "D:\\Projects\\DotNet Projects\\Training\\MyDotnetProject\\MyDotnetProject.sln" --configuration Release'
             }
         }
 
         stage('Publish') {
             steps {
-                bat 'dotnet publish D:\\Projects\\DotNet Projects\\Training\\MyDotnetProject\\MyDotnetProject.sln
- --configuration Release --output "${BUILD_DIR}"'
+                bat 'dotnet publish "D:\\Projects\\DotNet Projects\\Training\\MyDotnetProject\\MyDotnetProject.sln" --configuration Release --output "${BUILD_DIR}"'
             }
         }
 
