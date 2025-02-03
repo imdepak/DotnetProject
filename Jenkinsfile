@@ -25,6 +25,11 @@ pipeline {
                 bat 'dotnet publish "D:\\Projects\\DotNet Projects\\Training\\MyDotnetProject\\MyDotnetProject.sln" --configuration Release --output "${BUILD_DIR}"'
             }
         }
+        stage('Stop IIS') {
+            steps {
+                bat 'iisreset /stop'
+            }
+        }
         stage('Copy to IIS') {
             steps {
                 script {
@@ -36,6 +41,11 @@ pipeline {
                         error "Publish output folder does not exist or is empty!"
                     }
                 }
+            }
+        }
+         stage('Start IIS') {
+            steps {
+                bat 'iisreset /start'
             }
         }
         stage('Deploy') {
