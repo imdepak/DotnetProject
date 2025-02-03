@@ -10,14 +10,14 @@
         "projectUniqueName": "D:\\Projects\\DotNet Projects\\Training\\MyDotnetProject\\MyDotnetProject.csproj",
         "projectName": "MyDotnetProject",
         "projectPath": "D:\\Projects\\DotNet Projects\\Training\\MyDotnetProject\\MyDotnetProject.csproj",
-        "packagesPath": "C:\\Users\\leite\\.nuget\\packages\\",
+        "packagesPath": "C:\\WINDOWS\\system32\\config\\systemprofile\\.nuget\\packages\\",
         "outputPath": "D:\\Projects\\DotNet Projects\\Training\\MyDotnetProject\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\leite\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\WINDOWS\\system32\\config\\systemprofile\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
