@@ -1,0 +1,35 @@
+//Query strings are appended to the URL after a ?, with key-value pairs separated by &.
+GET /api/products?category=electronics&price=1000
+
+[HttpGet]
+[Route("api/products")]
+public IActionResult GetProducts([FromQuery] string category, [FromQuery] int price)
+{
+    return Ok($"Category: {category}, Price: {price}");
+}
+
+
+//Route Parameter:
+GET /api/products/123
+
+[HttpGet]
+[Route("api/products/{id}")]
+public IActionResult GetProductById([FromRoute] int id)
+{
+    return Ok($"Product ID: {id}");
+}
+
+
+//Request Body
+
+{
+    "name": "Laptop",
+    "price": 1500
+}
+
+[HttpPost]
+[Route("api/products")]
+public IActionResult CreateProduct([FromBody] Product product)
+{
+    return Ok($"Product Name: {product.Name}, Price: {product.Price}");
+}
