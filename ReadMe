@@ -1,4 +1,4 @@
-dotnet new webapi -n MyDatabaseApi
+dotnet new webapi -n MyAPI
 cd MyDatabaseApi
 
 dotnet add package Microsoft.EntityFrameworkCore.SqlServer
@@ -21,6 +21,12 @@ using Microsoft.EntityFrameworkCore;
 builder.Services.AddControllers();
 builder.Services.AddDbContext<MyDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+ builder.Services.AddControllers()
+                .AddNewtonsoftJson(options =>
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                );
+
 
 app.UseRouting();   
 app.UseEndpoints(endpoints =>
