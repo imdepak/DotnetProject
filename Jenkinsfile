@@ -54,4 +54,20 @@ pipeline {
             }
         }
     }
+    post {
+        success {
+            emailext(
+                to: 'deepak.v@leitenindia.com',
+                subject: "✅ Build SUCCESS - ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: "The build was successful. App deployed to IIS.\n\nURL: http://localhost\nBuild: ${env.BUILD_URL}"
+            )
+        }
+        failure {
+            emailext(
+                to: 'deepak.v@leitenindia.com',
+                subject: "❌ Build FAILED - ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: "The build failed. Please review the logs:\n\n${env.BUILD_URL}"
+            )
+        }
+    }
 }
