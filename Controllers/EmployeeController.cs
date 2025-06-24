@@ -25,7 +25,7 @@ public List<Employee>  GetEmployees()
 [HttpGet("getEmployees")]
 public String getEmployees()
 {
-    var employees = "Checking My Pipeline Testing Now For Deepak Deepak";
+    var employees = "Checking My Pipeline Testing Now For Deepak";
     return employees;
 }
 
