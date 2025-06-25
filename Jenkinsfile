@@ -57,16 +57,14 @@ pipeline {
     post {
         success {
             emailext(
-                from: 'info@leitensmartvms.com',
-                to: 'deepak003.ece@gmail.com',
+                to: 'deepak.v@leitenindia.com',
                 subject: "✅ Build SUCCESS",
                 body: "The build was successful. App deployed to IIS."
             )
         }
         failure {
             emailext(
-                from: 'info@leitensmartvms.com',
-                to: 'deepak003.ece@gmail.com',
+                to: 'deepak.v@leitenindia.com',
                 subject: "❌ Build FAILED",
                 body: "The build failed. Please review the logs"
             )
