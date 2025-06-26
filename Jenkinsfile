@@ -65,7 +65,7 @@ pipeline {
                     <p>The build has completed with status: <strong>${currentBuild.currentResult}</strong>.</p>
                     <p><a href="${env.BUILD_URL}">Click here</a> to view the console output.</p>
                 """,
-                mimeType: 'text/html'
+                mimeType: 'text/html' 
             )
         }
     }
