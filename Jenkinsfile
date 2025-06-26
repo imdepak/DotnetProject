@@ -67,9 +67,10 @@ pipeline {
                    for (file in entry.affectedFiles) {
                         def path = file.path
                         // Skip bin/, obj/, .vs/, .git/, .idea/
-                        if (!path.matches(/^.*\\b(bin|obj|.vs|.git|.idea)\\b.*/)) {
+                          if (!path.toLowerCase().matches("(?i).*(/|\\\\)(bin|obj|.vs|.git|.idea)(/|\\\\).*")) {
                             changeFiles << path
                         }
+
                     }
                 }
             }
@@ -81,7 +82,7 @@ pipeline {
                 from: 'info@leitensmartvms.com',
                 to: 'deepak.v@leitenindia.com',
                 replyTo: 'info@leitensmartvms.com',
-                subject: "Build ${currentBuild.currentResult}: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                subject: "Build ${currentBuild.currentResult == 'SUCCESS' ? 'green' : 'red'}: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
                 body: """
                     <p>The build for <strong>${env.JOB_NAME}</strong> #${env.BUILD_NUMBER} has completed with status: 
                     <span style="color:${currentBuild.currentResult == 'SUCCESS' ? 'green' : 'red'};">
