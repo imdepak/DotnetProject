@@ -57,26 +57,24 @@ pipeline {
     post {
     always {
         script {
-            def changeAuthors = []
+            def changeAuthors = [] as Set
             def changeFiles = []
 
-            def changeLogSets = currentBuild.changeSets
-            for (changeSet in changeLogSets) {
+            for (changeSet in currentBuild.changeSets) {
                 for (entry in changeSet.items) {
                     changeAuthors << entry.author.fullName
-                   for (file in entry.affectedFiles) {
+                    for (file in entry.affectedFiles) {
                         def path = file.path
-                        // Skip bin/, obj/, .vs/, .git/, .idea/
-                          if (!path.toLowerCase().matches("(?i).*(/|\\\\)(bin|obj|.vs|.git|.idea)(/|\\\\).*")) {
+                        // Skip bin/, obj/, .vs/, .git/, .idea folders
+                        if (!path.toLowerCase().matches("(?i).*(/|\\\\)(bin|obj|.vs|.git|.idea)(/|\\\\).*")) {
                             changeFiles << path
                         }
-
                     }
                 }
             }
 
-            def uniqueAuthors = changeAuthors.unique().join(', ')
-            def fileList = changeFiles ? "<ul><li>${changeFiles.join('</li><li>')}</li></ul>" : "<i>No files changed</i>"
+            def authors = changeAuthors ? changeAuthors.join(', ') : 'Unknown (possibly scheduled or triggered manually)'
+            def files = changeFiles ? "<ul><li>${changeFiles.join('</li><li>')}</li></ul>" : "<i>No relevant files changed</i>"
 
             emailext(
                 from: 'info@leitensmartvms.com',
@@ -84,22 +82,19 @@ pipeline {
                 replyTo: 'info@leitensmartvms.com',
                 subject: "Build ${currentBuild.currentResult}: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
                 body: """
-                    <p>The build for <strong>${env.JOB_NAME}</strong> #${env.BUILD_NUMBER} has completed with status: 
+                    <p><strong>Build Result:</strong> 
                     <span style="color:${currentBuild.currentResult == 'SUCCESS' ? 'green' : 'red'};">
-                        <strong>${currentBuild.currentResult}</strong>
-                    </span>.</p>
+                        ${currentBuild.currentResult}
+                    </span></p>
 
-                    <p><strong>Triggered By:</strong> ${uniqueAuthors ?: 'Unknown (maybe scheduled build)'}</p>
+                    <p><strong>Triggered By:</strong> ${authors}</p>
+                    <p><strong>Files Changed:</strong><br>${files}</p>
 
-                    <p><strong>Files Changed:</strong></p>
-                    ${fileList}
-
-                    <p><a href="${env.BUILD_URL}">Click here</a> to view full build details.</p>
+                    <p><a href="${env.BUILD_URL}">Click here</a> to view full console output.</p>
                 """,
                 mimeType: 'text/html'
             )
         }
     }
 }
-
 }
