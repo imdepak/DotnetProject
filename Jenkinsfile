@@ -64,8 +64,12 @@ pipeline {
             for (changeSet in changeLogSets) {
                 for (entry in changeSet.items) {
                     changeAuthors << entry.author.fullName
-                    for (file in entry.affectedFiles) {
-                        changeFiles << file.path
+                   for (file in entry.affectedFiles) {
+                        def path = file.path
+                        // Skip bin/, obj/, .vs/, .git/, .idea/
+                        if (!path.matches(/^.*\\b(bin|obj|.vs|.git|.idea)\\b.*/)) {
+                            changeFiles << path
+                        }
                     }
                 }
             }
