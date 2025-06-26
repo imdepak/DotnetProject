@@ -55,18 +55,21 @@ pipeline {
         }
     }
     post {
-        success {
+        always {
             emailext(
                 to: 'deepak.v@leitenindia.com',
-                subject: "✅ Build SUCCESS",
-                body: "The build was successful. App deployed to IIS."
-            )
-        }
-        failure {
-            emailext(
-                to: 'deepak.v@leitenindia.com',
-                subject: "❌ Build FAILED",
-                body: "The build failed. Please review the logs"
+                subject: "Build Status",
+                body: """Check console output at """,
+                replyTo: 'info@leitensmartvms.com',
+                mimeType: 'text/html',
+                smtp: [
+                    host: 'smtp.gmail.com',
+                    port: 587,
+                    auth: true,
+                    username: 'info@leitensmartvms.com',
+                    password: 'pmyk axax pxya jpmx',
+                    tls: true
+                ]
             )
         }
     }
