@@ -57,8 +57,9 @@ pipeline {
     post {
        always {
             emailext(
-                to: 'deepak.v@leitenindia.com',
-                from: 'info@leitensmartvms.com',
+                 from: 'info@leitensmartvms.com',
+                 to: 'deepak.v@leitenindia.com',
+             replyTo: 'info@leitensmartvms.com',
                 replyTo: 'info@leitensmartvms.com',
                 subject: "Build ${currentBuild.currentResult}: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
                 body: """
