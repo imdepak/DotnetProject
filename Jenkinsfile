@@ -55,21 +55,17 @@ pipeline {
         }
     }
     post {
-        always {
+       always {
             emailext(
                 to: 'deepak.v@leitenindia.com',
-                subject: "Build Status",
-                body: """Check console output at """,
+                from: 'info@leitensmartvms.com',
                 replyTo: 'info@leitensmartvms.com',
-                mimeType: 'text/html',
-                smtp: [
-                    host: 'smtp.gmail.com',
-                    port: 587,
-                    auth: true,
-                    username: 'info@leitensmartvms.com',
-                    password: 'pmyk axax pxya jpmx',
-                    tls: true
-                ]
+                subject: "Build ${currentBuild.currentResult}: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: """
+                    <p>The build has completed with status: <strong>${currentBuild.currentResult}</strong>.</p>
+                    <p><a href="${env.BUILD_URL}">Click here</a> to view the console output.</p>
+                """,
+                mimeType: 'text/html'
             )
         }
     }
