@@ -55,18 +55,46 @@ pipeline {
         }
     }
     post {
-       always {
+    always {
+        script {
+            def changeAuthors = []
+            def changeFiles = []
+
+            def changeLogSets = currentBuild.changeSets
+            for (changeSet in changeLogSets) {
+                for (entry in changeSet.items) {
+                    changeAuthors << entry.author.fullName
+                    for (file in entry.affectedFiles) {
+                        changeFiles << file.path
+                    }
+                }
+            }
+
+            def uniqueAuthors = changeAuthors.unique().join(', ')
+            def fileList = changeFiles ? "<ul><li>${changeFiles.join('</li><li>')}</li></ul>" : "<i>No files changed</i>"
+
             emailext(
-                 from: 'info@leitensmartvms.com',
-                 to: 'deepak.v@leitenindia.com',
+                from: 'info@leitensmartvms.com',
+                to: 'deepak.v@leitenindia.com',
                 replyTo: 'info@leitensmartvms.com',
                 subject: "Build ${currentBuild.currentResult}: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
                 body: """
-                    <p>The build has completed with status: <strong>${currentBuild.currentResult}</strong>.</p>
-                    <p><a href="${env.BUILD_URL}">Click here</a> to view the console output.</p>
-                """, 
-                mimeType: 'text/html' 
+                    <p>The build for <strong>${env.JOB_NAME}</strong> #${env.BUILD_NUMBER} has completed with status: 
+                    <span style="color:${currentBuild.currentResult == 'SUCCESS' ? 'green' : 'red'};">
+                        <strong>${currentBuild.currentResult}</strong>
+                    </span>.</p>
+
+                    <p><strong>Triggered By:</strong> ${uniqueAuthors ?: 'Unknown (maybe scheduled build)'}</p>
+
+                    <p><strong>Files Changed:</strong></p>
+                    ${fileList}
+
+                    <p><a href="${env.BUILD_URL}">Click here</a> to view full build details.</p>
+                """,
+                mimeType: 'text/html'
             )
         }
     }
+}
+
 }
